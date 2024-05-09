@@ -12,7 +12,7 @@ variable "credit_quota" {
 variable "warehouse_comment" {
   type        = string
   description = "Comment for the warehouse or added description of warehouse"
-  default     = "This is the ${var.warhouse_name} warehouse"
+  default     = ""
 }
 
 variable "warehouse_type" {
