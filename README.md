@@ -20,8 +20,7 @@ To use the module you will need to use the following:
 
 ```hcl
 module "snowflake_warehouse_bi" {
-  source  = "https://github.com/Richard-Barrett/terraform-snowflake-warehouses"
-  version = "0.0.1"
+  source = "git::https://github.com/Richard-Barrett/terraform-snowflake-warehouses.git?ref=0.0.1"
 
   warehouse_name    = "BI"
   warehouse_comment = "Business Intelligences Warehouse"    # Optional
@@ -39,8 +38,7 @@ What if you want to specify specific components in the warehouse?
 
 ```hcl
 module "snowflake_warehouse_bi" {
-  source  = "https://github.com/Richard-Barrett/terraform-snowflake-warehouses"
-  version = "0.0.1"
+  source  = "git::https://github.com/Richard-Barrett/terraform-snowflake-warehouses.git?ref=0.0.1"
 
   warehouse_size    = "medium"
   warehouse_name    = "BI"
