@@ -14,6 +14,12 @@ Example CICD with `BitBucket` and `Codefresh`:
 
 ![Image](./images/diagram.png)
 
+## NOTES
+
+**`WARNING`**: 
+
+- BREAKING CHANGES OCCUR FROM 0.11.0 TO 1.11.0 THE SNOWFLAKE PROVIDER VERSON UPGRADES FROM 93.X.X TO 1.0.1 HAD SOME CHANGES IN THE OVERALL NAMING CONVENTIONS AND LOGIC FOR MAKINMG WAREHOUSE ROLES
+
 ## Usage
 
 To use the module you will need to use the following:
@@ -63,22 +69,26 @@ In overview, this repository acts as a digestible module that allows you to crea
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.6 |
-| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.75.0 |
+| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 1.0.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | 0.75.0 |
+| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | 1.0.1 |
+
+## Modules
+
+No modules.
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [snowflake_account_role.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/account_role) | resource |
+| [snowflake_grant_privileges_to_account_role.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/grant_privileges_to_account_role) | resource |
 | [snowflake_resource_monitor.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/resource_monitor) | resource |
-| [snowflake_role.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/role) | resource |
 | [snowflake_warehouse.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/warehouse) | resource |
-| [snowflake_warehouse_grant.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/warehouse_grant) | resource |
 
 ## Inputs
 
@@ -87,7 +97,6 @@ In overview, this repository acts as a digestible module that allows you to crea
 | <a name="input_auto_resume"></a> [auto\_resume](#input\_auto\_resume) | Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. | `bool` | `true` | no |
 | <a name="input_auto_suspend"></a> [auto\_suspend](#input\_auto\_suspend) | Specifies the number of seconds of inactivity after which a warehouse is automatically suspended. | `number` | `200` | no |
 | <a name="input_credit_quota"></a> [credit\_quota](#input\_credit\_quota) | Credit Quota for Warehouse | `number` | `100` | no |
-| <a name="input_enable_multiple_grants"></a> [enable\_multiple\_grants](#input\_enable\_multiple\_grants) | When this is set to true, multiple grants of the same type can be created. This will cause Terraform to not revoke grants applied to roles and objects outside Terraform. | `bool` | `true` | no |
 | <a name="input_max_cluster_count"></a> [max\_cluster\_count](#input\_max\_cluster\_count) | Specifies the maximum number of server clusters for the warehouse. | `number` | `"2"` | no |
 | <a name="input_max_concurrency_level"></a> [max\_concurrency\_level](#input\_max\_concurrency\_level) | Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse. | `number` | `8` | no |
 | <a name="input_min_cluster_count"></a> [min\_cluster\_count](#input\_min\_cluster\_count) | Specifies the minimum number of server clusters for the warehouse (only applies to multi-cluster warehouses). | `number` | `"1"` | no |
@@ -95,7 +104,7 @@ In overview, this repository acts as a digestible module that allows you to crea
 | <a name="input_resource_monitor"></a> [resource\_monitor](#input\_resource\_monitor) | Specifies the name of a resource monitor that is explicitly assigned to the warehouse. | `string` | n/a | yes |
 | <a name="input_statement_queued_timeout_in_seconds"></a> [statement\_queued\_timeout\_in\_seconds](#input\_statement\_queued\_timeout\_in\_seconds) | Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system | `number` | `3600` | no |
 | <a name="input_statement_timeout_in_seconds"></a> [statement\_timeout\_in\_seconds](#input\_statement\_timeout\_in\_seconds) | Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system | `number` | `3600` | no |
-| <a name="input_warehouse_comment"></a> [warehouse\_comment](#input\_warehouse\_comment) | Comment for the warehouse or added description of warehouse | `string` | n/a | yes |
+| <a name="input_warehouse_comment"></a> [warehouse\_comment](#input\_warehouse\_comment) | Comment for the warehouse or added description of warehouse | `string` | `""` | no |
 | <a name="input_warehouse_name"></a> [warehouse\_name](#input\_warehouse\_name) | Name of the Warehouse you want to make | `string` | n/a | yes |
 | <a name="input_warehouse_size"></a> [warehouse\_size](#input\_warehouse\_size) | Specifies the size of the virtual warehouse. Larger warehouse sizes 5X-Large and 6X-Large are currently in preview and only available on Amazon Web Services (AWS). | `string` | `"X-SMALL"` | no |
 | <a name="input_warehouse_type"></a> [warehouse\_type](#input\_warehouse\_type) | Specifies a STANDARD or SNOWPARK-OPTIMIZED warehouse | `string` | `"STANDARD"` | no |
