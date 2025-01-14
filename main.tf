@@ -41,7 +41,7 @@ resource "snowflake_account_role" "this" {
 
 # Snowflake Resource Monitor
 resource "snowflake_resource_monitor" "this" {
-  name        = var.resource_monitor
+  name         = var.resource_monitor
   credit_quota = var.credit_quota
 }
 
@@ -49,8 +49,8 @@ resource "snowflake_resource_monitor" "this" {
 resource "snowflake_grant_privileges_to_account_role" "this" {
   for_each = local.access_types
 
-  account_role_name  = snowflake_account_role.this.name
-  privileges  = [each.key]
+  account_role_name = snowflake_account_role.this.name
+  privileges        = [each.key]
   on_account_object {
     object_type = "WAREHOUSE"
     object_name = snowflake_warehouse.this.name
