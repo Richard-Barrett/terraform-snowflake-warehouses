@@ -3,7 +3,7 @@ terraform {
   required_providers {
     snowflake = {
       source  = "Snowflake-Labs/snowflake"
-      version = "~> 0.89.0"
+      version = "~> 1.0.1"
     }
   }
 }
@@ -34,23 +34,26 @@ resource "snowflake_warehouse" "this" {
   statement_timeout_in_seconds        = var.statement_timeout_in_seconds
 }
 
-resource "snowflake_role" "this" {
+# Snowflake Role
+resource "snowflake_account_role" "this" {
   name = "${snowflake_warehouse.this.name}_ACCESS"
 }
 
+# Snowflake Resource Monitor
 resource "snowflake_resource_monitor" "this" {
-  name = var.resource_monitor
-
+  name         = var.resource_monitor
   credit_quota = var.credit_quota
 }
 
-resource "snowflake_warehouse_grant" "this" {
-  depends_on = [snowflake_role.this]
-  for_each   = local.access_types
+# Grant Privileges to Account Role (replace deprecated snowflake_warehouse_grant)
+resource "snowflake_grant_privileges_to_account_role" "this" {
+  for_each = local.access_types
 
-  warehouse_name         = snowflake_warehouse.this.name
-  privilege              = each.key
-  enable_multiple_grants = var.enable_multiple_grants
-  roles                  = [snowflake_role.this.name]
-  with_grant_option      = var.with_grant_option
+  account_role_name = snowflake_account_role.this.name
+  privileges        = [each.key]
+  on_account_object {
+    object_type = "WAREHOUSE"
+    object_name = snowflake_warehouse.this.name
+  }
+  with_grant_option = var.with_grant_option
 }

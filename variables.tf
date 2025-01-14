@@ -80,12 +80,6 @@ variable "statement_timeout_in_seconds" {
   default     = 3600
 }
 
-variable "enable_multiple_grants" {
-  type        = bool
-  description = "When this is set to true, multiple grants of the same type can be created. This will cause Terraform to not revoke grants applied to roles and objects outside Terraform."
-  default     = true
-}
-
 variable "with_grant_option" {
   type        = bool
   description = "When this is set to true, allows the recipient role to grant the privileges to other roles."
